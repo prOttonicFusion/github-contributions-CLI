@@ -1,6 +1,7 @@
 import argparse
 import configparser
 import urllib.request as request
+import urllib.error as requestError
 from htmlParser import CustomHTMLParser
 
 
@@ -15,13 +16,23 @@ def initParse():
     parser.add_argument('-u', '--user', metavar='userName', type=str, default=config['DEFAULT']['GitHubUsername'], dest="gitHubUser",
                         help='specify GitHub username (default: read from config.ini)')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if (args.gitHubUser == ""):
+        print("GitHub username not specified! Make sure to add it to 'config.ini' or specify one using the '-u' flag")
+        exit(1)
+
+    return args
 
 
 def fetchProfilePage(gitHubUser):
-    with request.urlopen("https://github.com/{}".format(gitHubUser)) as response:
-        html = response.read().decode("utf8")
-        return html
+    try:
+        with request.urlopen("https://github.com/{}".format(gitHubUser)) as response:
+            html = response.read().decode("utf8")
+            return html
+    except requestError.HTTPError as exc:
+        print("Unable to fetch profile page: ", exc)
+        exit(1)
 
 
 def parseContributions(htmlPage):

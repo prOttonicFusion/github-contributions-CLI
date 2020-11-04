@@ -12,8 +12,8 @@ class CustomHTMLParser(HTMLParser):
 
                 for name, value in attrs:
                     if name == "data-count":
-                        contributionDate[name] = int(value)
+                        contributionDate["contribution-count"] = int(value)
                     if name == "data-date":
-                        contributionDate[name] = value
+                        contributionDate["date"] = value
 
                 self.contributionDates.append(contributionDate)

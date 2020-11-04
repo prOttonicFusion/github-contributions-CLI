@@ -1,3 +1,4 @@
+import argparse
 import urllib.request as request
 from htmlParser import CustomHTMLParser
 
@@ -19,12 +20,23 @@ def parseContributions(htmlPage):
     return parser.contributionDates
 
 
+def renderDatesForOutput(dateData, dayDisplayCount):
+    daysToRender = dateData[-dayDisplayCount:]
+    outPutString = ""
+    for day in daysToRender:
+        outPutString += "{}: {}\n".format(day["date"],
+                                          day["contribution-count"])
+    return outPutString
+
+
 def main():
     args = parser.parse_args()
 
     gitHubUser = "prottonicfusion"
     profilePage = fetchProfilePage(gitHubUser)
     dateData = parseContributions(profilePage)
+
+    print(renderDatesForOutput(dateData, args.dayDisplayCount))
 
 
 if __name__ == "__main__":

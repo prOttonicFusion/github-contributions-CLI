@@ -6,11 +6,13 @@ from colors import styledString
 import argparse
 import configparser
 import math
+import os
 
 
 def initParse():
+    dirname = os.path.dirname(__file__)
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read(os.path.join(dirname, "config.ini"))
 
     parser = argparse.ArgumentParser(
         description='Fetch your GitHub contribution stats')

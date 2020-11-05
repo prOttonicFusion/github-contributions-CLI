@@ -13,6 +13,8 @@ def initParse():
         description='Fetch your GitHub contribution stats')
     parser.add_argument('-N', metavar='days', type=int, default=7, dest="dayDisplayCount",
                         help='number of days to show (default: 7)')
+    parser.add_argument('-t', '--today', metavar='days', action='store_const', const=1, dest="dayDisplayCount",
+                        help='display today\'s contributions (default: 7)')
     parser.add_argument('-u', '--user', metavar='userName', type=str, default=config['DEFAULT']['GitHubUsername'], dest="gitHubUser",
                         help='specify GitHub username (default: read from config.ini)')
 

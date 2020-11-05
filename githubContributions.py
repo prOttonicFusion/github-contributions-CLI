@@ -1,8 +1,11 @@
-import argparse
-import configparser
 import urllib.request as request
 import urllib.error as requestError
 from htmlParser import CustomHTMLParser
+from colors import bcolors
+from colors import styledString
+import argparse
+import configparser
+import math
 
 
 def initParse():
@@ -21,7 +24,8 @@ def initParse():
     args = parser.parse_args()
 
     if (args.gitHubUser == ""):
-        print("GitHub username not specified! Make sure to add it to 'config.ini' or specify one using the '-u' flag")
+        print(styledString(
+            "GitHub username not specified! Make sure to add it to 'config.ini' or specify one using the '-u' flag", bcolors.FAIL))
         exit(1)
 
     return args
@@ -29,11 +33,12 @@ def initParse():
 
 def fetchProfilePage(gitHubUser):
     try:
+        styledString
         with request.urlopen("https://github.com/{}".format(gitHubUser)) as response:
             html = response.read().decode("utf8")
             return html
     except requestError.HTTPError as exc:
-        print("Unable to fetch profile page: ", exc)
+        print(styledString("Unable to fetch profile page: ", bcolors.FAIL), exc)
         exit(1)
 
 
@@ -43,12 +48,27 @@ def parseContributions(htmlPage):
     return parser.contributionDates
 
 
+def visualizeContributionCount(count):
+    marker = styledString("▰", bcolors.OKGREEN)
+    if (count == 0):
+        return " "
+    elif (count <= 20):
+        return math.ceil(count/2) * marker
+    else:
+        return marker * 10
+
+
 def renderDatesForOutput(dateData, dayDisplayCount):
     daysToRender = dateData[-dayDisplayCount:]
     outPutString = ""
     for day in daysToRender:
-        outPutString += "{}: {}\n".format(day["date"],
-                                          day["contribution-count"])
+        date = day["date"]
+        contributionCount = day["contribution-count"]
+        visualization = visualizeContributionCount(contributionCount)
+
+        outPutString += "{}: {} {}\n".format(date,
+                                             visualization,
+                                             contributionCount)
     return outPutString
 
 

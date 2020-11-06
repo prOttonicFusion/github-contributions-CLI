@@ -1,4 +1,4 @@
-# github-contributions-CLI
+# GitHub Contributions CLI
 A command line tool for keeping track of your contribution count on GitHub
 
 <p align="left">

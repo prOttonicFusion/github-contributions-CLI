@@ -2,7 +2,7 @@
 A command line tool for keeping track of your contribution count on GitHub
 
 <p align="left">
-  <img src="assets/sample-output.png" width="30%" alt="Sample output"/>
+  <img src="assets/sample-output.png" width="210px" alt="Sample output"/>
 </p>
 
 ## Setup (Optional)

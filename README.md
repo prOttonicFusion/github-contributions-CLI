@@ -1,5 +1,5 @@
 # GitHub Contributions CLI
-A command line tool for keeping track of your contributions count on GitHub
+A command line tool for keeping track of your daily contributions count on GitHub
 
 <p align="left">
   <img src="assets/sample-output.png" width="210px" alt="Sample output"/>

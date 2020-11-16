@@ -53,7 +53,7 @@ def parseContributions(htmlPage):
 def visualizeContributionCount(count):
     marker = styledString("▰", bcolors.OKGREEN)
     if (count == 0):
-        return " "
+        return ""
     elif (count <= 20):
         return math.ceil(count/2) * marker
     else:

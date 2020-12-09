@@ -2,6 +2,7 @@ from html.parser import HTMLParser
 
 
 class CustomHTMLParser(HTMLParser):
+    """A class for parsing contribution dates from a HTML string"""
 
     contributionDates = list()
 

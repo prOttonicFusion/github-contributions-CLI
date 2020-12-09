@@ -10,6 +10,7 @@ import os
 
 
 def initParse():
+    """Parse command line arguments & config file contents"""
     dirname = os.path.dirname(__file__)
     config = configparser.ConfigParser()
     config.read(os.path.join(dirname, "config.ini"))
@@ -34,6 +35,8 @@ def initParse():
 
 
 def fetchProfilePage(gitHubUser):
+    """Attempt to download the GitHub profile page.
+    Returns a HTML string on success"""
     try:
         styledString
         with request.urlopen("https://github.com/{}".format(gitHubUser)) as response:
@@ -45,12 +48,15 @@ def fetchProfilePage(gitHubUser):
 
 
 def parseContributions(htmlPage):
+    """Parse a HTML string
+    Returns a list of contribution dates"""
     parser = CustomHTMLParser()
     parser.feed(htmlPage)
     return parser.contributionDates
 
 
 def visualizeContributionCount(count):
+    """Returns a visualization string of the inputed contribution count"""
     marker = styledString("▰", bcolors.OKGREEN)
     if (count == 0):
         return ""
@@ -61,6 +67,7 @@ def visualizeContributionCount(count):
 
 
 def renderDatesForOutput(dateData, dayDisplayCount):
+    """Returns a rendered output string"""
     daysToRender = dateData[-dayDisplayCount:]
     outPutString = ""
     for day in daysToRender:

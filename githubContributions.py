@@ -23,6 +23,8 @@ def initParse():
                         help='display today\'s contributions (default: 7)')
     parser.add_argument('-u', '--user', metavar='userName', type=str, default=config['DEFAULT']['GitHubUsername'], dest="gitHubUser",
                         help='specify GitHub username (default: read from config.ini)')
+    parser.add_argument('-m', '--marker', metavar='markerSymbol', type=str, default="", dest="markerSymbol",
+                        help='specify progress bar marker symbol (default: read from config.ini)')
 
     args = parser.parse_args()
 
@@ -30,6 +32,13 @@ def initParse():
         print(styledString(
             "GitHub username not specified! Make sure to add it to 'config.ini' or specify one using the '-u' flag", bcolors.FAIL))
         exit(1)
+    
+    if (args.markerSymbol == ""):
+        configFileMarker = config['DEFAULT']['ProgressBarMarker']
+        if (configFileMarker != ""):
+            args.markerSymbol = configFileMarker
+        else:
+            args.markerSymbol = "▰"
 
     return args
 
@@ -55,9 +64,9 @@ def parseContributions(htmlPage):
     return parser.contributionDates
 
 
-def visualizeContributionCount(count):
+def visualizeContributionCount(count, marker):
     """Returns a visualization string of the inputed contribution count"""
-    marker = styledString("▰", bcolors.OKGREEN)
+    marker = styledString(marker, bcolors.OKGREEN)
     if (count == 0):
         return ""
     elif (count <= 20):
@@ -66,14 +75,14 @@ def visualizeContributionCount(count):
         return marker * 10
 
 
-def renderDatesForOutput(dateData, dayDisplayCount):
+def renderDatesForOutput(dateData, dayDisplayCount, marker):
     """Returns a rendered output string"""
     daysToRender = dateData[-dayDisplayCount:]
     outPutString = ""
     for day in daysToRender:
         date = day["date"]
         contributionCount = day["contribution-count"]
-        visualization = visualizeContributionCount(contributionCount)
+        visualization = visualizeContributionCount(contributionCount, marker)
 
         if visualization == "":
             outPutString += "{}: {}\n".format(date, contributionCount)
@@ -88,7 +97,7 @@ def main(args):
     profilePage = fetchProfilePage(args.gitHubUser)
     dateData = parseContributions(profilePage)
 
-    print(renderDatesForOutput(dateData, args.dayDisplayCount))
+    print(renderDatesForOutput(dateData, args.dayDisplayCount, args.markerSymbol))
 
 
 if __name__ == "__main__":

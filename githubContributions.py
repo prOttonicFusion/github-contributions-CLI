@@ -76,7 +76,7 @@ def renderDatesForOutput(dateData, dayDisplayCount):
         visualization = visualizeContributionCount(contributionCount)
 
         if visualization == "":
-            outPutString += "{}: {}".format(date, contributionCount)
+            outPutString += "{}: {}\n".format(date, contributionCount)
         else:
             outPutString += "{}: {} {}\n".format(date,
                                                  visualization,

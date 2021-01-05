@@ -13,4 +13,14 @@ If the configuration file has been set up as described above, the script works b
 ```
 python3 githubContributions.py
 ```
-If the output looks odd, try changing the progress bar symbol in `config.ini` or using the command line flag `-m`. To get more info about usage, run the script with the `-h` flag.
+By default, contributions are shown for the last week. This can be modified by using either 
+```
+python3 githubContributions.py -N 15
+```
+to print out the last 15 days or
+```
+python3 githubContributions.py -t 
+```
+to check today's stats.
+
+To get more info about usage, run the script with the `-h` flag. If the output looks odd, try changing the progress bar symbol in `config.ini` or using the command line flag `-m`. 

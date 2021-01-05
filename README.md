@@ -13,4 +13,4 @@ If the configuration file has been set up as described above, the script works b
 ```
 python3 githubContributions.py
 ```
-To get more info about usage, run the script with the `-h` flag.
+If the output looks odd, try changing the progress bar symbol in `config.ini` or using the command line flag `--marker`. To get more info about usage, run the script with the `-h` flag.

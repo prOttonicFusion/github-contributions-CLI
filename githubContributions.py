@@ -1,3 +1,11 @@
+"""
+A command line tool for checking your daily contributions counts on GitHub 
+"""
+
+__author__ = "prOttonicFusion"
+__version__ = "0.2.0"
+__license__ = "MIT"
+
 import urllib.request as request
 import urllib.error as requestError
 from htmlParser import CustomHTMLParser

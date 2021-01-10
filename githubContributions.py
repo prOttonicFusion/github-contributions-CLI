@@ -40,7 +40,7 @@ def initParse():
         print(styledString(
             "GitHub username not specified! Make sure to add it to 'config.ini' or specify one using the '-u' flag", bcolors.FAIL))
         exit(1)
-    
+
     if (args.markerSymbol == ""):
         configFileMarker = config['DEFAULT']['ProgressBarMarker']
         if (configFileMarker != ""):

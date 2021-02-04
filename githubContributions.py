@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 """
 A command line tool for checking your daily contributions counts on GitHub 
 """

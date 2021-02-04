@@ -8,7 +8,7 @@ class CustomHTMLParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         if (tag == "rect"):
-            if (('class', 'day') in attrs):
+            if (('class', 'ContributionCalendar-day') in attrs):
                 contributionDate = {}
 
                 for name, value in attrs:
@@ -17,4 +17,5 @@ class CustomHTMLParser(HTMLParser):
                     if name == "data-date":
                         contributionDate["date"] = value
 
-                self.contributionDates.append(contributionDate)
+                if contributionDate != {}:
+                    self.contributionDates.append(contributionDate)
